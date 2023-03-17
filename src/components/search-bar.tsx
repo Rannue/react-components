@@ -1,14 +1,11 @@
 import React from "react";
 
-type MyProps = {
-  message: string | null;
-};
-type MyState = {
+type TSearchBarState = {
   value: string;
 };
 
-export class SearchBar extends React.Component<MyProps, MyState> {
-  constructor(props: Readonly<MyProps> | MyProps) {
+export class SearchBar extends React.Component<object, TSearchBarState> {
+  constructor(props: Readonly<object> | object) {
     super(props);
     this.state = {
       value: this.getInputValueFromLocalStorage(),
@@ -19,12 +16,11 @@ export class SearchBar extends React.Component<MyProps, MyState> {
 
   InputChange(event: React.FormEvent<HTMLInputElement>) {
     const inputValue = event.currentTarget.value;
-    console.log(inputValue);
     this.setState({ value: inputValue });
-    this.addValueToLocalStorage(inputValue);
+    this.addInputValueToLocalStorage(inputValue);
   }
 
-  addValueToLocalStorage(value: string) {
+  addInputValueToLocalStorage(value: string) {
     localStorage.setItem("inputValue", value);
   }
 
