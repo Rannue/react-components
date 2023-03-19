@@ -1,10 +1,9 @@
-import React from "react";
-import { NavLink, Route, Routes } from "react-router-dom";
-import "./App.css";
+import React from 'react';
+import { NavLink, Route, Routes } from 'react-router-dom';
 
-import { NotFound } from "./pages/404-page";
-import { AboutPage } from "./pages/about-page";
-import { HomePage } from "./pages/home-page";
+import { NotFound } from './pages/404-page';
+import { AboutPage } from './pages/about-page';
+import { HomePage } from './pages/home-page';
 
 function App() {
   return (
@@ -14,18 +13,10 @@ function App() {
           <h4>KEYBOARDS</h4>
         </div>
         <div className="pages">
-          <NavLink
-            to="/"
-            className={(props) => (props.isActive ? "active" : "no-active")}
-          >
+          <NavLink end to="/">
             Main page
           </NavLink>
-          <NavLink
-            to="/about-us"
-            className={(props) => (props.isActive ? "active" : "no-active")}
-          >
-            About us
-          </NavLink>
+          <NavLink to="/about-us">About us</NavLink>
         </div>
       </header>
       <main>

@@ -18,7 +18,6 @@ a:hover {
 }
 
 
-
 #root {
   display: flex;
   flex-direction: column;
@@ -31,6 +30,7 @@ body {
 }
 
 header {
+  opacity: 1;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -40,6 +40,10 @@ header {
 
 .active {
   text-decoration: underline;
+}
+
+.inactive {
+  text-decoration: none;
 }
 
 main {
@@ -61,16 +65,9 @@ h4 {
   font-weight: 500;
 }
 
-h2 {
-  font-size: 3.5em;
-  font-weight: lighter;
-  opacity: 0.1;
-}
-
 h3 {
   font-size: 2.5em;
 }
-
 
 h5 {
   font-family: 'Roboto', sans-serif;

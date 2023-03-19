@@ -1,5 +1,5 @@
-import { IProduct } from "assets/data";
-import React from "react";
+import { IProduct } from 'assets/data';
+import React from 'react';
 
 export class CardItem extends React.Component<IProduct> {
   constructor(props: Readonly<IProduct> | IProduct) {
@@ -9,11 +9,7 @@ export class CardItem extends React.Component<IProduct> {
     return (
       <>
         <div className="card-img__wrapper">
-          <img
-            className="card-img"
-            src={this.props.thumbnail}
-            alt={this.props.title}
-          />
+          <img className="card-img" src={this.props.thumbnail} alt={this.props.title} />
         </div>
         <div className="card-text__wrapper">
           <div className="card-title">

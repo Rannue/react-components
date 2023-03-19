@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 type TSearchBarState = {
   value: string;
@@ -8,7 +8,7 @@ export class SearchBar extends React.Component<object, TSearchBarState> {
   constructor(props: Readonly<object> | object) {
     super(props);
     this.state = {
-      value: localStorage.getItem("inputValue") || "",
+      value: localStorage.getItem('inputValue') || '',
     };
 
     this.InputChange = this.InputChange.bind(this);
@@ -20,7 +20,7 @@ export class SearchBar extends React.Component<object, TSearchBarState> {
   }
 
   componentWillUnmount() {
-    localStorage.setItem("inputValue", this.state.value);
+    localStorage.setItem('inputValue', this.state.value);
   }
 
   render() {

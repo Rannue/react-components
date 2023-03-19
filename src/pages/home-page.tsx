@@ -1,8 +1,8 @@
-import React from "react";
-import { products } from "../assets/data";
-import "../components/card.css";
-import { Cards } from "../components/cards";
-import { SearchBar } from "../components/search-bar";
+import React from 'react';
+import { products } from '../assets/data';
+import { Cards } from '../components/cards';
+import { SearchBar } from '../components/search-bar';
+import './card.css';
 
 const HomePage = () => {
   return (
