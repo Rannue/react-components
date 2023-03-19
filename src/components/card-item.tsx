@@ -8,15 +8,21 @@ export class CardItem extends React.Component<IProduct> {
   render() {
     return (
       <>
-        <div className="UserInfo">
+        <div className="card-img__wrapper">
           <img
-            className="Avatar"
+            className="card-img"
             src={this.props.thumbnail}
             alt={this.props.title}
           />
         </div>
-        <div className="Comment-text">{this.props.title}</div>
-        <div className="Comment-date">{this.props.price}</div>
+        <div className="card-text__wrapper">
+          <div className="card-title">
+            <h5>{this.props.title}</h5>
+          </div>
+          <div className="card-price">
+            <h4>{this.props.price}$</h4>
+          </div>
+        </div>
       </>
     );
   }
