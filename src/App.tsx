@@ -1,5 +1,7 @@
 import React from 'react';
-import { NavLink, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
+import Footer from './components/footer';
+import Header from './components/header';
 
 import { NotFound } from './pages/404-page';
 import { AboutPage } from './pages/about-page';
@@ -9,15 +11,7 @@ function App() {
   return (
     <>
       <header>
-        <div className="logo">
-          <h4>KEYBOARDS</h4>
-        </div>
-        <div className="pages">
-          <NavLink end to="/">
-            Main page
-          </NavLink>
-          <NavLink to="/about-us">About us</NavLink>
-        </div>
+        <Header />
       </header>
       <main>
         <Routes>
@@ -26,6 +20,9 @@ function App() {
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
       </main>
+      <footer>
+        <Footer />
+      </footer>
     </>
   );
 }
