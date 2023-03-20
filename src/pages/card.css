@@ -1,0 +1,130 @@
+h2 {
+  font-size: 3.5em;
+  font-weight: lighter;
+  opacity: 0.2;
+}
+
+.card-container {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+  -webkit-column-gap: 30px;
+          column-gap: 30px;
+}
+
+.card-container .card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 12px;
+  margin-bottom: 5vw;
+  padding-bottom: 8px;
+  cursor: pointer;
+  background-color: #f3f3f3;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.card-container .card .card-text__wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 6px;
+  padding: 0 0 16px 16px;
+}
+
+.card-container .card .card-img__wrapper {
+  display: inline;
+}
+
+.card-container .card .card-img__wrapper img {
+  width: 100%;
+  height: 35vh;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.card-container .card:hover {
+  -webkit-filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.15));
+          filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.15));
+}
+
+.card:hover ~ img {
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+}
+
+.search-bar__container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.search-bar__wrapper {
+  -ms-flex-item-align: center;
+      align-self: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 16px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.search-bar {
+  height: 32px;
+  border: none;
+  background-color: #6141DA;
+  border-radius: 50px 0 0 50px;
+  padding-left: 12px;
+  color: #fff;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.search-bar:focus {
+  background-color: #f87c44;
+  outline: none;
+}
+
+.search-bar:focus + .search-icon {
+  background-color: #f87c44;
+  outline: none;
+}
+
+.search-icon {
+  height: 32px;
+  width: 32px;
+  border: none;
+  background-color: #6141DA;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-radius: 0 50px 50px 0;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+/*# sourceMappingURL=card.css.map */
