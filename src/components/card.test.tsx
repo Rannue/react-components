@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import { products } from 'assets/data';
 import React from 'react';
+import { products } from '../assets/data';
 import { Cards } from './cards';
 
 test('Product price', () => {
