@@ -95,3 +95,11 @@ h5 {
   font-size: 1em;
   font-weight: lighter;
 }
+
+/* ----------forms---------- */
+
+.invalid {
+  border: 1px red solid;
+}
+
+
