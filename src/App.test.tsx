@@ -23,6 +23,15 @@ describe('App routing', () => {
     expect(screen.getByTestId('about-page')).toBeInTheDocument();
   });
 
+  test('renders about component on about route', () => {
+    render(
+      <MemoryRouter initialEntries={['/form']}>
+        <App />
+      </MemoryRouter>
+    );
+    expect(screen.getByTestId('form-page')).toBeInTheDocument();
+  });
+
   test('renders not found component on unknown route', () => {
     render(
       <MemoryRouter initialEntries={['/unknown']}>

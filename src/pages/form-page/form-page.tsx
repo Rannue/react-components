@@ -24,7 +24,7 @@ class FormPage extends React.Component<Record<string, never>> {
   render() {
     return (
       <>
-        <div className="form-page">
+        <div data-testid="form-page" className="form-page">
           <Form addCard={this.addCard} />
           <CardList ref={this.cardListRef} />
         </div>
