@@ -73,7 +73,7 @@ export class Form extends React.Component<CardFormProps, CardFormState> {
 
     if (!radio) {
       invalidFields.push('radio');
-    } else if (!['Men', 'Women', 'Unknown gender'].includes(radio)) {
+    } else if (!['Man', 'Woman', 'Unknown gender'].includes(radio)) {
       invalidFields.push('radio');
     }
 
@@ -177,15 +177,15 @@ export class Form extends React.Component<CardFormProps, CardFormState> {
               <h5>SEX</h5>
               <div className="radio">
                 <div className="form_radio">
-                  <input id="radio-1" type="radio" name="radio" value="Men" />
+                  <input id="radio-1" type="radio" name="radio" value="Man" />
                   <label className="radio-label" htmlFor="radio-1">
-                    Men
+                    Man
                   </label>
                 </div>
                 <div className="form_radio">
-                  <input id="radio-2" type="radio" name="radio" value="Women" />
+                  <input id="radio-2" type="radio" name="radio" value="Woman" />
                   <label className="radio-label" htmlFor="radio-2">
-                    Women
+                    Woman
                   </label>
                 </div>
                 <div className="form_radio">

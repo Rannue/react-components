@@ -26,6 +26,7 @@ export class CardList extends React.Component<unknown, CardListState> {
   };
 
   render() {
+    console.log(this.state.cards);
     return (
       <div className="form-cards">
         {this.state.cards.map((card) => (
