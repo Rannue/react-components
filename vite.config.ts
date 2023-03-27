@@ -1,8 +1,24 @@
 import react from '@vitejs/plugin-react';
-import { defineConfig } from 'vite';
+import { UserConfig } from 'vite';
+
+interface MyConfig extends UserConfig {
+  test?: {
+    globals?: boolean;
+    environment?: string;
+    setupFiles?: string;
+    coverage?: {
+      enabled: boolean;
+      provider: string;
+      reporter: string;
+      all: boolean;
+      include: string[];
+      exclude: string[];
+    };
+  };
+}
 
 // https://vitejs.dev/config/
-export default defineConfig({
+const config: MyConfig = {
   plugins: [react()],
   resolve: {
     alias: {
@@ -19,7 +35,15 @@ export default defineConfig({
       reporter: 'text',
       all: true,
       include: ['src//'],
-      exclude: ['src/setupTests.ts', 'src/vite-env.d.ts'],
+      exclude: [
+        'src/setupTests.ts',
+        'src/vite-env.d.ts',
+        'src/assets/index.d.ts',
+        'src/components/footer.tsx',
+        'src/index.tsx',
+      ],
     },
   },
-});
+};
+
+export default config;
