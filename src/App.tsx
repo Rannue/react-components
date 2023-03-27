@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import Footer from './components/footer';
 import Header from './components/header';
 import { FormPage } from './pages/form-page/form-page';
 
@@ -22,9 +21,6 @@ function App() {
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
       </main>
-      <footer>
-        <Footer />
-      </footer>
     </>
   );
 }

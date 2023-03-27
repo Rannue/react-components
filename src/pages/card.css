@@ -88,17 +88,16 @@ h2 {
   transition: 0.3s;
 }
 
-.form-cards .avatar {
-  height: 24px;
-  width: 24px;
-}
-
 .form-page {
   display: flex;
-  justify-content: center;
+  gap: 42px;
+  align-items: flex-start;
+  justify-content: start;
+  margin: 0 auto;
 }
 
 .form {
+  width: 425px;
   display: flex;
   flex-direction: column;
   gap: 52px;
@@ -106,10 +105,13 @@ h2 {
   padding: 42px 24px;
   border-radius: 2px;
 }
+.form .radio {
+  position: relative;
+}
 .form .form-bottom {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 32px;
 }
 .form .form-content, .form .form-submit {
   display: flex;
@@ -143,6 +145,7 @@ h2 {
   flex-direction: row;
   color: #000;
   align-items: center;
+  position: relative;
 }
 .form .sex .form_radio input {
   cursor: pointer;
@@ -160,7 +163,7 @@ h2 {
 }
 .form .form-top {
   display: flex;
-  gap: 24px;
+  justify-content: space-between;
 }
 .form .column {
   display: flex;
@@ -176,6 +179,7 @@ h2 {
   height: 22px;
 }
 .form .invalid {
+  border: none;
   border-bottom: 1px #f87c44 solid;
 }
 .form input:focus,
@@ -270,6 +274,62 @@ h2 {
   background-color: #eee;
 }
 
-.card-container {
+.form-cards {
   display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.form-card-container {
+  display: inline-flex;
+  gap: 24px;
+  align-items: center;
+  border: 1px #000 solid;
+  height: 200px;
+  width: 600px;
+}
+.form-card-container .info-container {
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+}
+.form-card-container .info-container__bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.form-card-container .info-block {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.form-card-container .avatar-container {
+  margin-top: 4px;
+}
+.form-card-container .avatar {
+  width: 200px;
+  height: 200px;
+}
+.form-card-container img {
+  background-color: #000;
+  outline: none;
+}
+
+.validation-message {
+  position: absolute;
+  bottom: -16px;
+  font-size: 10px;
+  color: #f87c44;
+}
+
+.validation-message__container {
+  position: relative;
+}
+
+.success-message {
+  margin-top: 10px;
+  align-self: center;
+  font-size: 24px;
+  font-weight: 500;
+  color: #00ff37;
 }/*# sourceMappingURL=card.css.map */

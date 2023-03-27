@@ -10,6 +10,7 @@ type CardFormState = {
   radio: string;
   image: File | null;
   invalidFields: string[];
+  successMessage: string;
 };
 
 interface CardFormProps {
@@ -31,6 +32,7 @@ export class Form extends React.Component<CardFormProps, CardFormState> {
       radio: '',
       image: null,
       invalidFields: [],
+      successMessage: '',
     };
   }
 
@@ -49,15 +51,29 @@ export class Form extends React.Component<CardFormProps, CardFormState> {
 
     if (!name) {
       invalidFields.push('name');
-    }
-    if (!select) {
-      invalidFields.push('select');
-    }
-    if (!date) {
-      invalidFields.push('date');
+    } else {
+      const nameRegex = /\b[A-Z][a-z]*\s+[A-Z][a-z]*\b/;
+      const nameIsValid = nameRegex.test(name);
+
+      if (!nameIsValid) invalidFields.push('name');
     }
 
+    if (!email) {
+      invalidFields.push('email');
+    } else {
+      const emailRegex = /@/;
+      const emailIsValid = emailRegex.test(email);
+
+      if (!emailIsValid) invalidFields.push('email');
+    }
+
+    if (!select) invalidFields.push('select');
+
+    if (!date) invalidFields.push('date');
+
     if (!radio) {
+      invalidFields.push('radio');
+    } else if (!['Men', 'Women', 'Unknown gender'].includes(radio)) {
       invalidFields.push('radio');
     }
 
@@ -74,12 +90,20 @@ export class Form extends React.Component<CardFormProps, CardFormState> {
           radio,
         };
         this.props.addCard(card);
-        console.log(image);
         this.formRef.current?.reset();
+        this.showSuccessMessage();
       });
     } else {
       this.setState({ name, select, date, checkbox, radio, invalidFields });
     }
+  };
+
+  showSuccessMessage = () => {
+    this.setState({ successMessage: 'Form submitted successfully!' }, () => {
+      setTimeout(() => {
+        this.setState({ successMessage: '' });
+      }, 2000);
+    });
   };
 
   render() {
@@ -90,15 +114,20 @@ export class Form extends React.Component<CardFormProps, CardFormState> {
         <div className="form-content">
           <div className="form-top">
             <div className="left-side column">
-              <label>
+              <label className="validation-message__container">
                 FULL NAME
                 <input
                   type="text"
                   name="name"
                   className={invalidFields.includes('name') ? 'invalid' : ''}
                 />
+                {invalidFields.includes('name') && (
+                  <div className="validation-message">
+                    enter first and last name in capital letters
+                  </div>
+                )}
               </label>
-              <label>
+              <label className="validation-message__container">
                 BIRTHDAY
                 <input
                   type="date"
@@ -112,32 +141,38 @@ export class Form extends React.Component<CardFormProps, CardFormState> {
                   name="date"
                   className={invalidFields.includes('date') ? 'invalid' : ''}
                 />
+                {invalidFields.includes('date') && (
+                  <div className="validation-message">enter date of birth</div>
+                )}
               </label>
             </div>
             <div className="right-side column">
-              <label>
+              <label className="validation-message__container">
                 EMAIL
                 <input
                   type="email"
                   name="email"
                   className={invalidFields.includes('email') ? 'invalid' : ''}
                 />
+                {invalidFields.includes('email') && (
+                  <div className="validation-message">enter @mail address</div>
+                )}
               </label>
               <label>
                 CONTINENT
                 <select name="select" className={invalidFields.includes('select') ? 'invalid' : ''}>
-                  <option value="EU">Eurasia</option>
-                  <option value="AF">Africa</option>
-                  <option value="NA">North America</option>
-                  <option value="SA">South America</option>
-                  <option value="AU">Australia</option>
-                  <option value="AN">Antarctica</option>
+                  <option value="Eurasia">Eurasia</option>
+                  <option value="Africa">Africa</option>
+                  <option value="North America">North America</option>
+                  <option value="South America">South America</option>
+                  <option value="Australia">Australia</option>
+                  <option value="Antarctica">Antarctica</option>
                 </select>
               </label>
             </div>
           </div>
           <div className="form-bottom">
-            <div className="sex">
+            <div className="sex validation-message__container">
               <h5>SEX</h5>
               <div className="radio">
                 <div className="form_radio">
@@ -149,10 +184,13 @@ export class Form extends React.Component<CardFormProps, CardFormState> {
                   <label htmlFor="radio-2">Women</label>
                 </div>
                 <div className="form_radio">
-                  <input id="radio-3" type="radio" name="radio" value="Other" />
+                  <input id="radio-3" type="radio" name="radio" value="Unknown gender" />
                   <label htmlFor="radio-3">Other</label>
                 </div>
               </div>
+              {invalidFields.includes('radio') && (
+                <div className="validation-message">indicate gender</div>
+              )}
             </div>
             <label>
               <label className="input-file">
@@ -169,6 +207,9 @@ export class Form extends React.Component<CardFormProps, CardFormState> {
             <input type="checkbox" name="checkbox" />
           </label>
           <button type="submit">Submit</button>
+          {this.state.successMessage && (
+            <div className="success-message">{this.state.successMessage}</div>
+          )}
         </div>
       </form>
     );
