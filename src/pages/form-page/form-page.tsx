@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form } from './components/form';
-import '../card.css';
-import { CardList } from './components/card';
+import '../style.css';
+import { CardList } from './components/form-card';
 
 export interface Card {
   id: number;

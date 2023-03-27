@@ -4,8 +4,8 @@ import Header from './components/header';
 import { FormPage } from './pages/form-page/form-page';
 
 import { NotFound } from './pages/404-page/404-page';
-import { AboutPage } from './pages/about-page';
-import { HomePage } from './pages/home-page';
+import { AboutPage } from './pages/about-page/about-page';
+import { HomePage } from './pages/home-page/home-page';
 
 function App() {
   return (
@@ -17,7 +17,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />}></Route>
           <Route path="/about-us" element={<AboutPage />}></Route>
-          <Route path="/your-keybords" element={<FormPage />}></Route>
+          <Route path="/form" element={<FormPage />}></Route>
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
       </main>

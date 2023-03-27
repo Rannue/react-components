@@ -13,7 +13,7 @@ export class Header extends React.Component {
             Main page
           </NavLink>
           <NavLink to="/about-us">About us</NavLink>
-          <NavLink to="/your-keybords">Your keybords</NavLink>
+          <NavLink to="/form">Form!</NavLink>
         </div>
       </>
     );

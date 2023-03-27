@@ -39,7 +39,7 @@ export class CardList extends React.Component<unknown, CardListState> {
             </div>
             <div className="info-container">
               <div className="info-container__top">
-                <h3 className="name">{card.name}</h3>
+                <h6 className="name">{card.name}</h6>
                 <h5>
                   {card.radio}, {this.getAge(card.date)} years
                 </h5>

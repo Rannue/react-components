@@ -1,5 +1,5 @@
 import React from 'react';
-import { IProduct } from '../assets/data';
+import { IProduct } from '../../assets/data';
 import { CardItem } from './card-item';
 
 type TCardsState = { cardsArr: IProduct[] };

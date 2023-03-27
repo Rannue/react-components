@@ -1,9 +1,49 @@
+// --------404-page--------
+
+h1 {
+  font-size: 200px;
+}
+
+h2 {
+  font-size: 3.5em;
+  font-weight: lighter;
+  opacity: 1;
+}
+
+.unknown-page__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.unknown-page__text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+button {
+  color: #fff;
+  cursor: pointer;
+  border-radius: 50px;
+  background-color: #f87c44;
+  border: none;
+  padding: 10px 20px;
+  transition: 0.3s;
+
+  &:hover {
+    background-color: #6141DA;
+  }
+}
+
 h2 {
   font-size: 3.5em;
   font-weight: lighter;
   opacity: 0.2;
 }
 
+// --------home-page--------
 
 .card-container {
   display: grid;
@@ -319,6 +359,15 @@ h2 {
   border: 1px #000 solid;
   height: 200px;
   width: 600px;
+
+  h6 {
+    font-size: 32px;
+    font-weight: 400;
+  }
+
+  h5 {
+    opacity: 0.5;
+  }
 
   .info-container {
     display: flex;

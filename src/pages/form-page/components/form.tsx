@@ -1,7 +1,7 @@
 import React, { createRef, FormEvent, RefObject } from 'react';
 import { Card } from '../form-page';
 
-type CardFormState = {
+export type CardFormState = {
   name: string;
   email: string;
   date: string;
@@ -13,7 +13,7 @@ type CardFormState = {
   successMessage: string;
 };
 
-interface CardFormProps {
+export interface CardFormProps {
   addCard: (card: Card) => void;
 }
 
@@ -27,7 +27,7 @@ export class Form extends React.Component<CardFormProps, CardFormState> {
       name: '',
       email: '',
       date: '',
-      select: 'сountry',
+      select: '',
       checkbox: false,
       radio: '',
       image: null,
@@ -111,6 +111,7 @@ export class Form extends React.Component<CardFormProps, CardFormState> {
 
     return (
       <form className="form" onSubmit={this.handleSubmit} ref={this.formRef}>
+        <h3>Add User</h3>
         <div className="form-content">
           <div className="form-top">
             <div className="left-side column">

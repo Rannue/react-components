@@ -1,3 +1,39 @@
+h1 {
+  font-size: 200px;
+}
+
+h2 {
+  font-size: 3.5em;
+  font-weight: lighter;
+  opacity: 1;
+}
+
+.unknown-page__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.unknown-page__text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+button {
+  color: #fff;
+  cursor: pointer;
+  border-radius: 50px;
+  background-color: #f87c44;
+  border: none;
+  padding: 10px 20px;
+  transition: 0.3s;
+}
+button:hover {
+  background-color: #6141DA;
+}
+
 h2 {
   font-size: 3.5em;
   font-weight: lighter;
@@ -288,6 +324,13 @@ h2 {
   height: 200px;
   width: 600px;
 }
+.form-card-container h6 {
+  font-size: 32px;
+  font-weight: 400;
+}
+.form-card-container h5 {
+  opacity: 0.5;
+}
 .form-card-container .info-container {
   display: flex;
   flex-direction: column;
@@ -332,4 +375,4 @@ h2 {
   font-size: 24px;
   font-weight: 500;
   color: #00ff37;
-}/*# sourceMappingURL=card.css.map */
+}/*# sourceMappingURL=style.css.map */
