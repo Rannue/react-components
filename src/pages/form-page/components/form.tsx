@@ -178,15 +178,21 @@ export class Form extends React.Component<CardFormProps, CardFormState> {
               <div className="radio">
                 <div className="form_radio">
                   <input id="radio-1" type="radio" name="radio" value="Men" />
-                  <label htmlFor="radio-1">Men</label>
+                  <label className="radio-label" htmlFor="radio-1">
+                    Men
+                  </label>
                 </div>
                 <div className="form_radio">
                   <input id="radio-2" type="radio" name="radio" value="Women" />
-                  <label htmlFor="radio-2">Women</label>
+                  <label className="radio-label" htmlFor="radio-2">
+                    Women
+                  </label>
                 </div>
                 <div className="form_radio">
                   <input id="radio-3" type="radio" name="radio" value="Unknown gender" />
-                  <label htmlFor="radio-3">Other</label>
+                  <label className="radio-label" htmlFor="radio-3">
+                    Other
+                  </label>
                 </div>
               </div>
               {invalidFields.includes('radio') && (
