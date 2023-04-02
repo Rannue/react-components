@@ -1,4 +1,4 @@
-import React, { createRef, FormEvent, RefObject } from 'react';
+import React, { useRef, useState } from 'react';
 import { Card } from '../form-page';
 
 export type CardFormState = {
@@ -17,26 +17,22 @@ export interface CardFormProps {
   addCard: (card: Card) => void;
 }
 
-export class Form extends React.Component<CardFormProps, CardFormState> {
-  private formRef: RefObject<HTMLFormElement> = createRef<HTMLFormElement>();
+export const Form = ({ addCard }: CardFormProps) => {
+  const formRef = useRef<HTMLFormElement>(null);
+  const [formState, setFormState] = useState<CardFormState>({
+    name: '',
+    email: '',
+    date: '',
+    select: '',
+    checkbox: false,
+    radio: '',
+    image: null,
+    invalidFields: [],
+    successMessage: '',
+  });
+  const [successMessage, setSuccessMessage] = useState('');
 
-  constructor(props: CardFormProps) {
-    super(props);
-
-    this.state = {
-      name: '',
-      email: '',
-      date: '',
-      select: '',
-      checkbox: false,
-      radio: '',
-      image: null,
-      invalidFields: [],
-      successMessage: '',
-    };
-  }
-
-  handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const name = formData.get('name') as string;
@@ -46,7 +42,6 @@ export class Form extends React.Component<CardFormProps, CardFormState> {
     const checkbox = formData.get('checkbox') !== null;
     const radio = formData.get('radio') as string;
     const image = formData.get('image') as File | null;
-
     const invalidFields: string[] = [];
 
     if (!name) {
@@ -78,147 +73,141 @@ export class Form extends React.Component<CardFormProps, CardFormState> {
     }
 
     if (invalidFields.length === 0) {
-      this.setState({ name, email, date, select, checkbox, radio, invalidFields }, () => {
-        const card: Card = {
-          id: Date.now(),
-          name,
-          email,
-          date,
-          select,
-          image,
-          checkbox,
-          radio,
-        };
-        this.props.addCard(card);
-        this.formRef.current?.reset();
-        this.showSuccessMessage();
-      });
+      setFormState({ ...formState, name, email, date, select, checkbox, radio, invalidFields });
+      const card: Card = {
+        id: Date.now(),
+        name,
+        email,
+        date,
+        select,
+        image,
+        checkbox,
+        radio,
+      };
+      addCard(card);
+      formRef.current?.reset();
+      showSuccessMessage();
     } else {
-      this.setState({ name, select, date, checkbox, radio, invalidFields });
+      setFormState({ ...formState, name, select, date, checkbox, radio, invalidFields });
     }
   };
 
-  showSuccessMessage = () => {
-    this.setState({ successMessage: 'Form submitted successfully!' }, () => {
-      setTimeout(() => {
-        this.setState({ successMessage: '' });
-      }, 2000);
-    });
+  const showSuccessMessage = () => {
+    setSuccessMessage('Form submitted successfully!');
+    setTimeout(() => {
+      setSuccessMessage('');
+    }, 2000);
   };
 
-  render() {
-    const { invalidFields } = this.state;
+  const { invalidFields } = formState;
 
-    return (
-      <form className="form" onSubmit={this.handleSubmit} ref={this.formRef}>
-        <h3>Add User</h3>
-        <div className="form-content">
-          <div className="form-top">
-            <div className="left-side column">
-              <label className="validation-message__container">
-                FULL NAME
-                <input
-                  type="text"
-                  name="name"
-                  className={invalidFields.includes('name') ? 'invalid' : ''}
-                />
-                {invalidFields.includes('name') && (
-                  <div className="validation-message">
-                    enter first and last name in capital letters
-                  </div>
-                )}
-              </label>
-              <label className="validation-message__container">
-                BIRTHDAY
-                <input
-                  type="date"
-                  max={new Date(
-                    new Date().getFullYear() - 5,
-                    new Date().getMonth(),
-                    new Date().getDate()
-                  )
-                    .toISOString()
-                    .slice(0, 10)}
-                  name="date"
-                  className={invalidFields.includes('date') ? 'invalid' : ''}
-                />
-                {invalidFields.includes('date') && (
-                  <div className="validation-message">enter date of birth</div>
-                )}
-              </label>
-            </div>
-            <div className="right-side column">
-              <label className="validation-message__container">
-                EMAIL
-                <input
-                  type="email"
-                  name="email"
-                  className={invalidFields.includes('email') ? 'invalid' : ''}
-                />
-                {invalidFields.includes('email') && (
-                  <div className="validation-message">enter @mail address</div>
-                )}
-              </label>
-              <label>
-                CONTINENT
-                <select name="select" className={invalidFields.includes('select') ? 'invalid' : ''}>
-                  <option value="Eurasia">Eurasia</option>
-                  <option value="Africa">Africa</option>
-                  <option value="North America">North America</option>
-                  <option value="South America">South America</option>
-                  <option value="Australia">Australia</option>
-                  <option value="Antarctica">Antarctica</option>
-                </select>
-              </label>
-            </div>
-          </div>
-          <div className="form-bottom">
-            <div className="sex validation-message__container">
-              <h5>SEX</h5>
-              <div className="radio">
-                <div className="form_radio">
-                  <input id="radio-1" type="radio" name="radio" value="Man" />
-                  <label className="radio-label" htmlFor="radio-1">
-                    Man
-                  </label>
+  return (
+    <form className="form" onSubmit={handleSubmit} ref={formRef}>
+      <h3>Add User</h3>
+      <div className="form-content">
+        <div className="form-top">
+          <div className="left-side column">
+            <label className="validation-message__container">
+              FULL NAME
+              <input
+                type="text"
+                name="name"
+                className={invalidFields.includes('name') ? 'invalid' : ''}
+              />
+              {invalidFields.includes('name') && (
+                <div className="validation-message">
+                  enter first and last name in capital letters
                 </div>
-                <div className="form_radio">
-                  <input id="radio-2" type="radio" name="radio" value="Woman" />
-                  <label className="radio-label" htmlFor="radio-2">
-                    Woman
-                  </label>
-                </div>
-                <div className="form_radio">
-                  <input id="radio-3" type="radio" name="radio" value="Unknown gender" />
-                  <label className="radio-label" htmlFor="radio-3">
-                    Other
-                  </label>
-                </div>
-              </div>
-              {invalidFields.includes('radio') && (
-                <div className="validation-message">indicate gender</div>
               )}
-            </div>
+            </label>
+            <label className="validation-message__container">
+              BIRTHDAY
+              <input
+                type="date"
+                max={new Date(
+                  new Date().getFullYear() - 5,
+                  new Date().getMonth(),
+                  new Date().getDate()
+                )
+                  .toISOString()
+                  .slice(0, 10)}
+                name="date"
+                className={invalidFields.includes('date') ? 'invalid' : ''}
+              />
+              {invalidFields.includes('date') && (
+                <div className="validation-message">enter date of birth</div>
+              )}
+            </label>
+          </div>
+          <div className="right-side column">
+            <label className="validation-message__container">
+              EMAIL
+              <input
+                type="email"
+                name="email"
+                className={invalidFields.includes('email') ? 'invalid' : ''}
+              />
+              {invalidFields.includes('email') && (
+                <div className="validation-message">enter @mail address</div>
+              )}
+            </label>
             <label>
-              <label className="input-file">
-                AVATAR
-                <input type="file" name="image" />
-                <span>Choose File</span>
-              </label>
+              CONTINENT
+              <select name="select" className={invalidFields.includes('select') ? 'invalid' : ''}>
+                <option value="Eurasia">Eurasia</option>
+                <option value="Africa">Africa</option>
+                <option value="North America">North America</option>
+                <option value="South America">South America</option>
+                <option value="Australia">Australia</option>
+                <option value="Antarctica">Antarctica</option>
+              </select>
             </label>
           </div>
         </div>
-        <div className="form-submit">
-          <label className="checkbox-container">
-            I agree to receive memes
-            <input type="checkbox" name="checkbox" />
+        <div className="form-bottom">
+          <div className="sex validation-message__container">
+            <h5>SEX</h5>
+            <div className="radio">
+              <div className="form_radio">
+                <input id="radio-1" type="radio" name="radio" value="Man" />
+                <label className="radio-label" htmlFor="radio-1">
+                  Man
+                </label>
+              </div>
+              <div className="form_radio">
+                <input id="radio-2" type="radio" name="radio" value="Woman" />
+                <label className="radio-label" htmlFor="radio-2">
+                  Woman
+                </label>
+              </div>
+              <div className="form_radio">
+                <input id="radio-3" type="radio" name="radio" value="Unknown gender" />
+                <label className="radio-label" htmlFor="radio-3">
+                  Other
+                </label>
+              </div>
+            </div>
+            {invalidFields.includes('radio') && (
+              <div className="validation-message">indicate gender</div>
+            )}
+          </div>
+          <label>
+            <label className="input-file">
+              AVATAR
+              <input type="file" name="image" />
+              <span>Choose File</span>
+            </label>
           </label>
-          <button type="submit">Submit</button>
-          {this.state.successMessage && (
-            <div className="success-message">{this.state.successMessage}</div>
-          )}
         </div>
-      </form>
-    );
-  }
-}
+      </div>
+      <div className="form-submit">
+        <label className="checkbox-container">
+          I agree to receive memes
+          <input type="checkbox" name="checkbox" />
+        </label>
+        <button type="submit">Submit</button>
+        {successMessage && <div className="success-message">{successMessage}</div>}
+      </div>
+    </form>
+  );
+};

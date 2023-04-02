@@ -1,8 +1,3 @@
-import React from 'react';
-import { Form } from './components/form';
-import '../style.css';
-import { CardList } from './components/form-card';
-
 export interface Card {
   id: number;
   name: string;
@@ -14,23 +9,30 @@ export interface Card {
   image: File | null;
 }
 
-class FormPage extends React.Component<Record<string, never>> {
-  private cardListRef: React.RefObject<CardList> = React.createRef<CardList>();
+import React, { useState } from 'react';
+import { Form } from './components/form';
+import '../style.css';
+import CardList from './components/form-card';
 
-  addCard = (card: Card) => {
-    this.cardListRef.current?.addCard(card);
+function FormPage() {
+  const [cards, setCards] = useState<Card[]>([]);
+
+  const addCard = (card: Card) => {
+    setCards((prevCards) => [...prevCards, card]);
   };
 
-  render() {
-    return (
-      <>
-        <div data-testid="form-page" className="form-page">
-          <Form addCard={this.addCard} />
-          <CardList ref={this.cardListRef} />
-        </div>
-      </>
-    );
-  }
+  const removeCard = (id: number) => {
+    setCards((prevCards) => prevCards.filter((card) => card.id !== id));
+  };
+
+  return (
+    <>
+      <div data-testid="form-page" className="form-page">
+        <Form addCard={addCard} />
+        <CardList cards={cards} removeCard={removeCard} />
+      </div>
+    </>
+  );
 }
 
 export { FormPage };
