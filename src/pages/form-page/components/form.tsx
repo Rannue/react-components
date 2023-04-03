@@ -165,7 +165,7 @@ export const Form = ({ addCard }: CardFormProps) => {
           <label>
             <label className="input-file">
               AVATAR
-              <input type="file" {...register('image', { required: true })} />
+              <input type="file" {...register('image')} />
               <span>Choose File</span>
             </label>
           </label>
