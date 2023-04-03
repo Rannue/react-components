@@ -1,16 +1,15 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { Card } from '../form-page';
 
-export type CardFormState = {
+type FormInputs = {
   name: string;
   email: string;
   date: string;
   select: string;
   checkbox: boolean;
-  radio: string;
-  image: File | null;
-  invalidFields: string[];
-  successMessage: string;
+  gender: string;
+  image: FileList | null;
 };
 
 export interface CardFormProps {
@@ -18,78 +17,29 @@ export interface CardFormProps {
 }
 
 export const Form = ({ addCard }: CardFormProps) => {
-  const formRef = useRef<HTMLFormElement>(null);
-  const [formState, setFormState] = useState<CardFormState>({
-    name: '',
-    email: '',
-    date: '',
-    select: '',
-    checkbox: false,
-    radio: '',
-    image: null,
-    invalidFields: [],
-    successMessage: '',
-  });
   const [successMessage, setSuccessMessage] = useState('');
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<FormInputs>();
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const name = formData.get('name') as string;
-    const email = formData.get('email') as string;
-    const select = formData.get('select') as string;
-    const date = formData.get('date') as string;
-    const checkbox = formData.get('checkbox') !== null;
-    const radio = formData.get('radio') as string;
-    const image = formData.get('image') as File | null;
-    const invalidFields: string[] = [];
-
-    if (!name) {
-      invalidFields.push('name');
-    } else {
-      const nameRegex = /\b[A-Z][a-z]*\s+[A-Z][a-z]*\b/;
-      const nameIsValid = nameRegex.test(name);
-
-      if (!nameIsValid) invalidFields.push('name');
-    }
-
-    if (!email) {
-      invalidFields.push('email');
-    } else {
-      const emailRegex = /@/;
-      const emailIsValid = emailRegex.test(email);
-
-      if (!emailIsValid) invalidFields.push('email');
-    }
-
-    if (!select) invalidFields.push('select');
-
-    if (!date) invalidFields.push('date');
-
-    if (!radio) {
-      invalidFields.push('radio');
-    } else if (!['Man', 'Woman', 'Unknown gender'].includes(radio)) {
-      invalidFields.push('radio');
-    }
-
-    if (invalidFields.length === 0) {
-      setFormState({ ...formState, name, email, date, select, checkbox, radio, invalidFields });
-      const card: Card = {
-        id: Date.now(),
-        name,
-        email,
-        date,
-        select,
-        image,
-        checkbox,
-        radio,
-      };
-      addCard(card);
-      formRef.current?.reset();
-      showSuccessMessage();
-    } else {
-      setFormState({ ...formState, name, select, date, checkbox, radio, invalidFields });
-    }
+  const onSubmit = (data: FormInputs) => {
+    const card: Card = {
+      id: Date.now(),
+      name: data.name,
+      email: data.email,
+      date: data.date,
+      select: data.select,
+      image: data.image ? data.image[0] : null,
+      checkbox: data.checkbox,
+      radio: data.gender,
+    };
+    console.log(card);
+    addCard(card);
+    showSuccessMessage();
+    reset();
   };
 
   const showSuccessMessage = () => {
@@ -99,10 +49,8 @@ export const Form = ({ addCard }: CardFormProps) => {
     }, 2000);
   };
 
-  const { invalidFields } = formState;
-
   return (
-    <form className="form" onSubmit={handleSubmit} ref={formRef}>
+    <form className="form" onSubmit={handleSubmit(onSubmit)}>
       <h3>Add User</h3>
       <div className="form-content">
         <div className="form-top">
@@ -111,10 +59,18 @@ export const Form = ({ addCard }: CardFormProps) => {
               FULL NAME
               <input
                 type="text"
-                name="name"
-                className={invalidFields.includes('name') ? 'invalid' : ''}
+                {...register('name', {
+                  required: true,
+                  pattern: /^(?=.*[A-Za-z])[A-Z][a-z]*\s+[A-Z][a-z]*$/,
+                })}
+                className={errors.name ? 'invalid' : ''}
               />
-              {invalidFields.includes('name') && (
+              {errors.name && (
+                <div className="validation-message">
+                  enter first and last name in capital letters
+                </div>
+              )}
+              {errors.name?.type === 'pattern' && (
                 <div className="validation-message">
                   enter first and last name in capital letters
                 </div>
@@ -131,29 +87,31 @@ export const Form = ({ addCard }: CardFormProps) => {
                 )
                   .toISOString()
                   .slice(0, 10)}
-                name="date"
-                className={invalidFields.includes('date') ? 'invalid' : ''}
+                {...register('date', { required: true })}
+                className={errors.date ? 'invalid' : ''}
               />
-              {invalidFields.includes('date') && (
-                <div className="validation-message">enter date of birth</div>
-              )}
+              {errors.date && <div className="validation-message">enter date of birth</div>}
             </label>
           </div>
           <div className="right-side column">
             <label className="validation-message__container">
               EMAIL
               <input
+                className={errors.email ? 'invalid' : ''}
                 type="email"
-                name="email"
-                className={invalidFields.includes('email') ? 'invalid' : ''}
+                {...register('email', {
+                  required: true,
+                  pattern: /@/,
+                })}
               />
-              {invalidFields.includes('email') && (
+              {errors.email && <div className="validation-message">enter @mail address</div>}
+              {errors.email?.type === 'pattern' && (
                 <div className="validation-message">enter @mail address</div>
               )}
             </label>
             <label>
               CONTINENT
-              <select name="select" className={invalidFields.includes('select') ? 'invalid' : ''}>
+              <select {...register('select', { required: true })}>
                 <option value="Eurasia">Eurasia</option>
                 <option value="Africa">Africa</option>
                 <option value="North America">North America</option>
@@ -166,35 +124,48 @@ export const Form = ({ addCard }: CardFormProps) => {
         </div>
         <div className="form-bottom">
           <div className="sex validation-message__container">
-            <h5>SEX</h5>
+            <h5>GENDER</h5>
             <div className="radio">
               <div className="form_radio">
-                <input id="radio-1" type="radio" name="radio" value="Man" />
+                <input
+                  id="radio-1"
+                  type="radio"
+                  value="Man"
+                  {...register('gender', { required: true })}
+                />
                 <label className="radio-label" htmlFor="radio-1">
                   Man
                 </label>
+                {errors.gender && <div className="validation-message">choose gender</div>}
               </div>
               <div className="form_radio">
-                <input id="radio-2" type="radio" name="radio" value="Woman" />
+                <input
+                  id="radio-2"
+                  type="radio"
+                  value="Woman"
+                  {...register('gender', { required: true })}
+                />
                 <label className="radio-label" htmlFor="radio-2">
                   Woman
                 </label>
               </div>
               <div className="form_radio">
-                <input id="radio-3" type="radio" name="radio" value="Unknown gender" />
+                <input
+                  id="radio-3"
+                  type="radio"
+                  value="Unknown gender"
+                  {...register('gender', { required: true })}
+                />
                 <label className="radio-label" htmlFor="radio-3">
                   Other
                 </label>
               </div>
             </div>
-            {invalidFields.includes('radio') && (
-              <div className="validation-message">indicate gender</div>
-            )}
           </div>
           <label>
             <label className="input-file">
               AVATAR
-              <input type="file" name="image" />
+              <input type="file" {...register('image', { required: true })} />
               <span>Choose File</span>
             </label>
           </label>
