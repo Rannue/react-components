@@ -9,7 +9,7 @@ type FormInputs = {
   select: string;
   checkbox: boolean;
   gender: string;
-  image: FileList | null;
+  image: FileList;
 };
 
 export interface CardFormProps {
@@ -39,7 +39,6 @@ export const Form = ({ addCard }: CardFormProps) => {
     console.log(card);
     addCard(card);
     showSuccessMessage();
-    reset();
   };
 
   const showSuccessMessage = () => {
@@ -47,6 +46,7 @@ export const Form = ({ addCard }: CardFormProps) => {
     setTimeout(() => {
       setSuccessMessage('');
     }, 2000);
+    reset();
   };
 
   return (
@@ -174,8 +174,19 @@ export const Form = ({ addCard }: CardFormProps) => {
           <label>
             <label className="input-file">
               AVATAR
-              <input type="file" {...register('image', { required: true })} />
-              {errors.image && <div className="validation-message">attach a photo</div>}
+              <input
+                type="file"
+                {...register('image', {
+                  required: true,
+                  validate: (value) => {
+                    const file = value[0];
+                    return file && (file.type === 'image/png' || file.type === 'image/jpeg');
+                  },
+                })}
+              />
+              {errors.image && (
+                <div className="validation-message">only JPG and PNG images are allowed</div>
+              )}
               <span>Choose File</span>
             </label>
           </label>
