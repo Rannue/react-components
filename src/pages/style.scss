@@ -293,6 +293,7 @@ input[type='radio']:checked + .radio-label::after {
   label {
     display: flex;
     flex-direction: column;
+    position: relative;
     gap: 8px;
     font-size: 12px;
     color: #a7a7a7;
@@ -300,6 +301,10 @@ input[type='radio']:checked + .radio-label::after {
 
   select {
     cursor: pointer;
+  }
+
+  .select-placeholder {
+    color: #a7a7a7;
   }
 
   input {

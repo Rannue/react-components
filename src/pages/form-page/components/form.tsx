@@ -111,7 +111,10 @@ export const Form = ({ addCard }: CardFormProps) => {
             </label>
             <label>
               CONTINENT
-              <select {...register('select', { required: true })}>
+              <select {...register('select', { required: 'Select a continent' })}>
+                <option className="select-placeholder" value="">
+                  Select a continent
+                </option>
                 <option value="Eurasia">Eurasia</option>
                 <option value="Africa">Africa</option>
                 <option value="North America">North America</option>
@@ -119,6 +122,9 @@ export const Form = ({ addCard }: CardFormProps) => {
                 <option value="Australia">Australia</option>
                 <option value="Antarctica">Antarctica</option>
               </select>
+              {errors.select?.type == 'required' && (
+                <div className="validation-message">Please select a continent</div>
+              )}
             </label>
           </div>
         </div>
@@ -165,7 +171,8 @@ export const Form = ({ addCard }: CardFormProps) => {
           <label>
             <label className="input-file">
               AVATAR
-              <input type="file" {...register('image')} />
+              <input type="file" {...register('image', { required: true })} />
+              {errors.image && <div className="validation-message">attach a photo</div>}
               <span>Choose File</span>
             </label>
           </label>

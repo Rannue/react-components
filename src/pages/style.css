@@ -258,12 +258,16 @@ h2 {
 .form label {
   display: flex;
   flex-direction: column;
+  position: relative;
   gap: 8px;
   font-size: 12px;
   color: #a7a7a7;
 }
 .form select {
   cursor: pointer;
+}
+.form .select-placeholder {
+  color: #a7a7a7;
 }
 .form input {
   font-size: 16px;
