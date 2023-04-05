@@ -184,7 +184,10 @@ export const Form = ({ addCard }: CardFormProps) => {
       <div className="form-submit">
         <label className="checkbox-container">
           I agree to receive memes
-          <input type="checkbox" name="checkbox" />
+          <input type="checkbox" {...register('checkbox', { required: true })} />
+          {errors.checkbox && (
+            <div className="validation-message">please agree to the newsletter</div>
+          )}
         </label>
         <button type="submit">Submit</button>
         {successMessage && <div className="success-message">{successMessage}</div>}
