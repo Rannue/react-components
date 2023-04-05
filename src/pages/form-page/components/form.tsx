@@ -111,7 +111,10 @@ export const Form = ({ addCard }: CardFormProps) => {
             </label>
             <label>
               CONTINENT
-              <select {...register('select', { required: 'Select a continent' })}>
+              <select
+                className={errors.select?.type == 'required' ? 'invalid' : ''}
+                {...register('select', { required: 'Select a continent' })}
+              >
                 <option className="select-placeholder" value="">
                   Select a continent
                 </option>

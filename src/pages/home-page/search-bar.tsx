@@ -1,9 +1,9 @@
-import React from 'react';
-
+import React, { useRef } from 'react';
 import { useState, useEffect } from 'react';
 
 export const SearchBar = (): JSX.Element => {
   const [value, setValue] = useState<string>(() => localStorage.getItem('inputValue') || '');
+  const valueRef = useRef<string>(value);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
@@ -11,8 +11,14 @@ export const SearchBar = (): JSX.Element => {
   };
 
   useEffect(() => {
-    localStorage.setItem('inputValue', value);
-  }, [value]);
+    return () => {
+      localStorage.setItem('inputValue', valueRef.current);
+    };
+  }, []);
+
+  useEffect(() => {
+    valueRef.current = value;
+  }, [value, setValue]);
 
   return (
     <>
