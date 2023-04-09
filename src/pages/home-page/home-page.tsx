@@ -21,42 +21,6 @@ const HomePage = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [selectedCard, setSelectedCard] = useState<Character | null>(null);
 
-  // const handleSearch = async (value: string) => {
-  //   console.log(value);
-  //   setLoading(true);
-  //   try {
-  //     const response = await fetch(`https://rickandmortyapi.com/api/character/?name=${value}`);
-  //     // if (!response.ok) {
-  //     //   const errorResponse: IErrorResponse = await response.json();
-  //     //   throw new Error(`HTTP error!: ${errorResponse.message}`);
-  //     // }
-  //     const data = await response.json();
-  //     setResults(data.results);
-  //   } catch (error: unknown) {
-  //     if (error instanceof TypeError) {
-  //       const obj: IErrors = {
-  //         errorStatus: 0,
-  //         text: 'Сheck internet connection',
-  //         image: noInternet,
-  //       };
-  //       setResults(obj);
-  //     } else {
-  //       const response = error as Response;
-  //       console.log(response);
-  //       if (response.status === 404) {
-  //         console.log('hi');
-  //         const obj: IErrors = {
-  //           errorStatus: 0,
-  //           text: 'No such character!',
-  //           image: responseStatus404,
-  //         };
-  //         setResults(obj);
-  //       }
-  //     }
-  //     setLoading(false);
-  //   }
-  // };
-
   const handleSearch = async (value: string) => {
     setLoading(true);
     try {
@@ -72,7 +36,7 @@ const HomePage = () => {
       }
       const data = await response.json();
       setResults(data.results);
-    } catch (error: unknown) {
+    } catch (error) {
       if (error instanceof TypeError) {
         const obj: IErrors = {
           errorStatus: 0,
@@ -81,29 +45,13 @@ const HomePage = () => {
         };
         setResults(obj);
       } else {
-        const response = error as Response;
+        console.log(error);
         const obj: IErrors = {
-          errorStatus: response.status,
+          errorStatus: 0,
           text: 'No such character!',
           image: responseStatus404,
         };
         setResults(obj);
-        if (response.status === 404) {
-          console.log(response.status);
-          const obj: IErrors = {
-            errorStatus: response.status,
-            text: 'No such character!',
-            image: responseStatus404,
-          };
-          setResults(obj);
-        } else if (response.status === 500) {
-          const obj: IErrors = {
-            errorStatus: response.status,
-            text: 'No such character!',
-            image: responseStatus404,
-          };
-          setResults(obj);
-        }
       }
     } finally {
       setLoading(false);

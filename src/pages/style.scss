@@ -15,24 +15,51 @@
     display: inline-block;
     background-color: #f3f3f3;
     display: flex;
-    flex-direction: column;
-    gap: 32px;
     padding: 32px;
     box-shadow: 16px 16px 30px rgba(0, 0, 0, 0.6);
     border-radius: 2px;
+    transition: 7s;
+
+    .modal-container__main-info {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .episode {
+      font-weight: 600;
+    }
+
+    .episodes-container {
+      max-height: 40em;
+      min-width: 20em;
+      overflow-y: scroll;
+      margin-left: 32px;
+      border: 1px solid #202020;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 8px;
+
+      &::-webkit-scrollbar {
+        background-color: transparent;
+        width: 16px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: #202020;
+      }
+    }
 
     .entity, .entity-info {
       display: flex;
       flex-direction: column;
+      gap: 12px;
     }
 
     .entity-name {
       max-width: 20em;
       line-height: 36px;
-    }
-
-    .entity-info {
-      gap: 12px;
     }
 
     img {

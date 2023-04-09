@@ -1,8 +1,33 @@
 import React from 'react';
-export const Episodes = () => {
-  return (
-    <>
-      <div className="spinner-container">rhjtgfhrhtyhjtyhjyt</div>
-    </>
-  );
+import { Episode } from './modal';
+
+interface EpisodesProps {
+  episodes: Episode[] | null;
+}
+
+export const Episodes: React.FC<EpisodesProps> = ({ episodes }) => {
+  if (episodes && episodes.length > 0) {
+    return (
+      <>
+        <div className="episodes-container">
+          {episodes.length > 0 &&
+            episodes.map((item) => (
+              <div key={item.id} className="k">
+                <div className="">
+                  <h5>
+                    {item.name} / <span className="episode">{item.episode}</span>
+                  </h5>
+                </div>
+              </div>
+            ))}
+        </div>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <div className="no-episodes"></div>
+      </>
+    );
+  }
 };
