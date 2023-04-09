@@ -11,12 +11,14 @@ export const CardItem: React.FC<CardItemProps> = ({ character, onCardClick }) =>
 
   return (
     <>
-      <div className="card-img__wrapper" onClick={() => onCardClick(character)}>
-        <img className="card-img" src={image} alt={name} />
-      </div>
-      <div className="card-text__wrapper">
-        <div className="card-title">
-          <h5>{name}</h5>
+      <div className="card-wrapper">
+        <div className="card-img__wrapper" onClick={() => onCardClick(character)}>
+          <img className="card-img" src={image} alt={name} />
+        </div>
+        <div className="card-text__wrapper">
+          <div className="card-title">
+            <h5>{name}</h5>
+          </div>
         </div>
       </div>
     </>

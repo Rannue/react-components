@@ -1,6 +1,5 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import logo from '../assets/pngegg.png';
 
 export class Header extends React.Component {
   render() {
