@@ -1,6 +1,7 @@
 import React from 'react';
 import { CardItem } from './card-item';
 import { Character } from './search-bar';
+import cucmber from '../../../assets/pngwing.com.png';
 
 interface CardsProps {
   characters: Character[] | null;
@@ -21,8 +22,9 @@ export const Cards: React.FC<CardsProps> = ({ characters, onCardClick }) => {
     );
   } else {
     return (
-      <div className="card-container">
-        <h2>никого нет</h2>
+      <div className="no-characters-container">
+        <h3>There are no such characters!</h3>
+        <img className="cucmber" src={cucmber} alt="cucmber" />
       </div>
     );
   }

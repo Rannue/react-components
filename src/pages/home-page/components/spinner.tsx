@@ -6,7 +6,11 @@ export const Spinner = () => {
 
   return (
     <>
-      <div className="spinner-container">rhjtgfhrhtyhjtyhjyt</div>
+      <div className="loading-dots">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
     </>
   );
 };
