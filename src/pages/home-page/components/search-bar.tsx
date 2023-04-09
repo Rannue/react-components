@@ -1,13 +1,45 @@
 import React, { useRef } from 'react';
 import { useState, useEffect } from 'react';
 
-export const SearchBar = (): JSX.Element => {
+export interface Character {
+  id: number;
+  name: string;
+  status: string;
+  species: string;
+  type: string;
+  gender: string;
+  origin: {
+    name: string;
+    url: string;
+  };
+  location: {
+    name: string;
+    url: string;
+  };
+  image: string;
+  episode: string[];
+  url: string;
+  created: string;
+}
+
+interface SearchBarProps {
+  onSearch: (value: string) => void;
+}
+
+export const SearchBar = ({ onSearch }: SearchBarProps): JSX.Element => {
   const [value, setValue] = useState<string>(() => localStorage.getItem('inputValue') || '');
   const valueRef = useRef<string>(value);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
     setValue(inputValue);
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      onSearch(value);
+    }
   };
 
   useEffect(() => {
@@ -23,7 +55,13 @@ export const SearchBar = (): JSX.Element => {
   return (
     <>
       <div className="search-bar__container">
-        <input className="search-bar" type="text" value={value} onChange={handleInputChange} />
+        <input
+          className="search-bar"
+          type="text"
+          value={value}
+          onChange={handleInputChange}
+          onKeyDown={handleKeyDown}
+        />
         <div className="search-icon">
           <svg
             width="24"
