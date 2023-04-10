@@ -8,6 +8,7 @@ interface SearchBarProps {
 export const SearchBar = ({ onSearch }: SearchBarProps): JSX.Element => {
   const [value, setValue] = useState<string>(() => localStorage.getItem('inputValue') || '');
   const valueRef = useRef<string>(value);
+  const [invalid, setInvalid] = useState<boolean>(false);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
@@ -15,9 +16,12 @@ export const SearchBar = ({ onSearch }: SearchBarProps): JSX.Element => {
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' && value.trim() !== '') {
       event.preventDefault();
       onSearch(value);
+      setInvalid(false);
+    } else {
+      setInvalid(true);
     }
   };
 
@@ -35,7 +39,7 @@ export const SearchBar = ({ onSearch }: SearchBarProps): JSX.Element => {
     <>
       <div className="search-bar__container">
         <input
-          className="search-bar"
+          className={`search-bar${invalid ? ' error' : ''}`}
           type="text"
           value={value}
           onChange={handleInputChange}

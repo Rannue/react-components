@@ -192,13 +192,32 @@ h2 {
   transition: 0.3s;
 }
 
-.search-bar:focus {
+@keyframes invalidPulse {
+  0% {
+    border: 1px solid rgba(42, 26, 194, 0.9);
+  }
+  50% {
+    border: 1px solid rgba(42, 26, 194, 0.4);
+  }
+  100% {
+    border: 1px solid rgba(42, 26, 194, 0);
+  }
+}
+.error {
   background-color: #f87c44;
+}
+
+.error + .search-icon {
+  background-color: #f87c44;
+}
+
+.search-bar:focus {
+  filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.2));
   outline: none;
 }
 
 .search-bar:focus + .search-icon {
-  background-color: #f87c44;
+  filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.2));
   outline: none;
 }
 
