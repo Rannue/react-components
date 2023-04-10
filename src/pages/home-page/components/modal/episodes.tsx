@@ -14,13 +14,9 @@ export const Episodes: React.FC<EpisodesProps> = ({ episodes }) => {
           {episodes.length > 0 &&
             episodes.map((item) => (
               <li role="listitem" key={item.id}>
-                <div>
-                  <div>
-                    <h5>
-                      {item.name} / <span className="episode">{item.episode}</span>
-                    </h5>
-                  </div>
-                </div>
+                <h5>
+                  {item.name} / <span className="episode">{item.episode}</span>
+                </h5>
               </li>
             ))}
         </div>

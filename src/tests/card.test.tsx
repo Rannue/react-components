@@ -2,7 +2,7 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { Cards } from '../pages/home-page/components/cards';
-import { Character } from '../pages/home-page/components/search-bar';
+import { Character } from 'pages/home-page/home-page';
 
 const characters: Character[] = [
   {

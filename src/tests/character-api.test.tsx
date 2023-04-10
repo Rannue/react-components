@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 
-import { Character } from 'pages/home-page/components/search-bar';
+import { Character } from 'pages/home-page/home-page';
 import { Modal } from '../pages/home-page/components/modal/modal';
 import React from 'react';
 

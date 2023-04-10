@@ -1,6 +1,6 @@
 import React from 'react';
 import { CardItem } from './card-item';
-import { Character } from './search-bar';
+import { Character } from '../home-page';
 import cucmber from '../../../assets/pngegg.png';
 import { IErrors } from '../home-page';
 

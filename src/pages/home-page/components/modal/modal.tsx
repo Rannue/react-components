@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Episodes } from './episodes';
 import { Spinner } from '../spinner';
-import { Character } from '../search-bar';
+import { Character } from 'pages/home-page/home-page';
 
 export interface ModalProps {
   character: Character;

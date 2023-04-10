@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Cards } from './components/cards';
-import { Character, SearchBar } from './components/search-bar';
+import { SearchBar } from './components/search-bar';
 
 import '../style.css';
 import { Spinner } from './components/spinner';
@@ -13,6 +13,27 @@ export interface IErrors {
   errorStatus: number;
   text: string;
   image: string;
+}
+
+export interface Character {
+  id: number;
+  name: string;
+  status: string;
+  species: string;
+  type: string;
+  gender: string;
+  origin: {
+    name: string;
+    url: string;
+  };
+  location: {
+    name: string;
+    url: string;
+  };
+  image: string;
+  episode: string[];
+  url: string;
+  created: string;
 }
 
 const HomePage = () => {

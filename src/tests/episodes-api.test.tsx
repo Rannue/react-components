@@ -1,4 +1,3 @@
-import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 import { Episodes } from '../pages/home-page/components/modal/episodes';
 import { Modal } from '../pages/home-page/components/modal/modal';
@@ -6,14 +5,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 
-const server = setupServer(
-  rest.get('/episodes/1', (req, res, ctx) => {
-    return res(ctx.json({ name: 'Episode 1' }));
-  }),
-  rest.get('/episodes/2', (req, res, ctx) => {
-    return res(ctx.json({ name: 'Episode 2' }));
-  })
-);
+const server = setupServer();
 
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());

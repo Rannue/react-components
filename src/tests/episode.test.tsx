@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { Modal } from '../pages/home-page/components/modal/modal';
 import React from 'react';
-import { Character } from '../pages/home-page/components/search-bar';
+import { Character } from 'pages/home-page/home-page';
 
 describe('Modal', () => {
   const character: Character = {
