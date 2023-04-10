@@ -38,19 +38,4 @@ describe('Modal', () => {
     expect(name).toBeInTheDocument();
     expect(image).toBeInTheDocument();
   });
-
-  // it('should not render episodes by default', () => {
-  //   render(<Modal character={character} />);
-  //   const episodes = screen.queryByTestId('episodes');
-  //   expect(episodes).not.toBeInTheDocument();
-  // });
-
-  // it('should render episodes when button is clicked', async () => {
-  //   render(<Modal character={character} />);
-  //   const button = screen.getByText('WHAT EPISODES ?');
-  //   fireEvent.click(button);
-
-  //   const episode = await screen.findByTestId('episodes');
-  //   expect(episode).toBeInTheDocument();
-  // });
 });

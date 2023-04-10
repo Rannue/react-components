@@ -73,7 +73,4 @@ test('handles episode search', async () => {
 
   const searchButton = screen.getByRole('button', { name: /what episodes ?/i });
   expect(searchButton).toBeInTheDocument();
-
-  //   fireEvent.click(searchButton);
-  //   await waitFor(() => expect(screen.getByTestId('episodes-list')).toBeInTheDocument());
 });

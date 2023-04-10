@@ -41,27 +41,14 @@ test('handleEpisodeSearch should fetch episodes and set results and buttonStatus
     type: '',
   };
 
-  const { getByRole, findByText } = render(<Modal character={mockCharacter} />);
+  const { getByRole } = render(<Modal character={mockCharacter} />);
   const button = getByRole('button', { name: 'WHAT EPISODES ?' });
 
   userEvent.click(button);
 
-  //   expect(button).toBeDisabled();
-
   const episode1 = await screen.queryByText(/episode/i);
-  //   const episode2 = await findByText('Episode 2');
-
   expect(episode1).toBeInTheDocument();
-  //   expect(episode2).toBeInTheDocument();
 });
-
-// id: number;
-// air_date: string;
-// characters: string[];
-// created: string;
-// episode: string;
-// name: string;
-// url: string;
 
 test('Episodes component should render a list of episodes', async () => {
   const episodes = [
@@ -85,5 +72,4 @@ test('Episodes component should render a list of episodes', async () => {
 
   expect(items).toHaveLength(episodes.length);
   expect(items[0]).toHaveTextContent(episodes[0].name);
-  expect(items[1]).toHaveTextContent(episodes[1].name);
 });

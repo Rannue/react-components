@@ -13,13 +13,15 @@ export const Episodes: React.FC<EpisodesProps> = ({ episodes }) => {
         <div className="episodes-container" data-testid="episodes">
           {episodes.length > 0 &&
             episodes.map((item) => (
-              <div key={item.id} className="k">
-                <div className="">
-                  <h5>
-                    {item.name} / <span className="episode">{item.episode}</span>
-                  </h5>
+              <li role="listitem" key={item.id}>
+                <div>
+                  <div>
+                    <h5>
+                      {item.name} / <span className="episode">{item.episode}</span>
+                    </h5>
+                  </div>
                 </div>
-              </div>
+              </li>
             ))}
         </div>
       </>
