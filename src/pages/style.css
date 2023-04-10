@@ -128,14 +128,14 @@ h2 {
 .card-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  justify-content: space-between;
+  gap: 30px;
   position: static;
 }
 .card-container .card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 5vw;
+  margin-bottom: 30px;
   background-color: #f3f3f3;
   position: static;
 }
