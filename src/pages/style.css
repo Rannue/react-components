@@ -166,10 +166,6 @@ h2 {
      object-fit: cover;
 }
 
-.card:hover ~ img {
-  transform: scale(1.2);
-}
-
 .search-bar__container {
   display: flex;
 }

@@ -1,12 +1,9 @@
 import React from 'react';
-import { useState } from 'react';
 
 export const Spinner = () => {
-  const [value, setValue] = useState('');
-
   return (
     <>
-      <div className="loading-dots">
+      <div className="loading-dots" data-testid="spinner">
         <div></div>
         <div></div>
         <div></div>

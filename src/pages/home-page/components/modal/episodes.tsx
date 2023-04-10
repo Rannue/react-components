@@ -6,10 +6,11 @@ interface EpisodesProps {
 }
 
 export const Episodes: React.FC<EpisodesProps> = ({ episodes }) => {
+  console.log(episodes);
   if (episodes && episodes.length > 0) {
     return (
       <>
-        <div className="episodes-container">
+        <div className="episodes-container" data-testid="episodes">
           {episodes.length > 0 &&
             episodes.map((item) => (
               <div key={item.id} className="k">

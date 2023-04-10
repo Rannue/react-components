@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { Character } from '../search-bar';
+import React, { useState } from 'react';
 import { Episodes } from './episodes';
 import { Spinner } from '../spinner';
+import { Character } from '../search-bar';
 
-interface ModalProps {
+export interface ModalProps {
   character: Character;
 }
 

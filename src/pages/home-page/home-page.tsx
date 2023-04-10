@@ -35,6 +35,7 @@ const HomePage = () => {
         throw new Error('Unknown error.');
       }
       const data = await response.json();
+      console.log(data);
       setResults(data.results);
     } catch (error) {
       if (error instanceof TypeError) {
