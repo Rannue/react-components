@@ -36,7 +36,6 @@ export const Form = ({ addCard }: CardFormProps) => {
       checkbox: data.checkbox,
       radio: data.gender,
     };
-    console.log(card);
     addCard(card);
     showSuccessMessage();
   };

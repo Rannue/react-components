@@ -1,39 +1,37 @@
 import React, { useRef } from 'react';
 import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { SearchState, setSearchText } from './store';
 
 interface SearchBarProps {
   onSearch: (value: string) => void;
 }
 
 export const SearchBar = ({ onSearch }: SearchBarProps): JSX.Element => {
-  const [value, setValue] = useState<string>(() => localStorage.getItem('inputValue') || '');
-  const valueRef = useRef<string>(value);
+  const dispatch = useDispatch();
+  const searchText = useSelector((state: SearchState) => {
+    return state.searchText;
+  });
   const [invalid, setInvalid] = useState<boolean>(false);
+
+  useEffect(() => {
+    dispatch(setSearchText(searchText));
+  }, [dispatch, searchText]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
-    setValue(inputValue);
+    dispatch(setSearchText(inputValue));
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter' && value.trim() !== '') {
+    if (event.key === 'Enter' && searchText.trim() !== '') {
       event.preventDefault();
-      onSearch(value);
+      onSearch(searchText);
       setInvalid(false);
     } else {
       setInvalid(true);
     }
   };
-
-  useEffect(() => {
-    return () => {
-      localStorage.setItem('inputValue', valueRef.current);
-    };
-  }, []);
-
-  useEffect(() => {
-    valueRef.current = value;
-  }, [value, setValue]);
 
   return (
     <>
@@ -41,7 +39,7 @@ export const SearchBar = ({ onSearch }: SearchBarProps): JSX.Element => {
         <input
           className={`search-bar${invalid ? ' error' : ''}`}
           type="text"
-          value={value}
+          value={searchText}
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
         />

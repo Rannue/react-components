@@ -6,7 +6,6 @@ interface EpisodesProps {
 }
 
 export const Episodes: React.FC<EpisodesProps> = ({ episodes }) => {
-  console.log(episodes);
   if (episodes && episodes.length > 0) {
     return (
       <>

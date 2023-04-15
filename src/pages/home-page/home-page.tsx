@@ -56,7 +56,6 @@ const HomePage = () => {
         throw new Error('Unknown error.');
       }
       const data = await response.json();
-      console.log(data);
       setResults(data.results);
     } catch (error) {
       if (error instanceof TypeError) {
@@ -67,7 +66,6 @@ const HomePage = () => {
         };
         setResults(obj);
       } else {
-        console.log(error);
         const obj: IErrors = {
           errorStatus: 0,
           text: 'No such character!',
