@@ -1,18 +1,26 @@
 import React from 'react';
-import { Character } from './search-bar';
+import { useDispatch } from 'react-redux';
+import { Character } from './data';
+import { setModalCardResult, setModalStatus } from './store';
 
 interface CardItemProps {
   character: Character;
-  onCardClick: (character: Character) => void;
 }
 
-export const CardItem: React.FC<CardItemProps> = ({ character, onCardClick }) => {
+export const CardItem: React.FC<CardItemProps> = ({ character }) => {
+  const dispatch = useDispatch();
+
+  const handleCardClick = () => {
+    dispatch(setModalCardResult(character));
+    dispatch(setModalStatus(true));
+  };
+
   const { name, image } = character;
 
   return (
     <>
       <div className="card-wrapper">
-        <div className="card-img__wrapper" onClick={() => onCardClick(character)}>
+        <div className="card-img__wrapper" onClick={handleCardClick}>
           <img className="card-img" src={image} alt={name} />
         </div>
         <div className="card-text__wrapper">
