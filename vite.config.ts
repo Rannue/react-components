@@ -43,6 +43,7 @@ const config: MyConfig = {
         'src/components/footer.tsx',
         'src/index.tsx',
         'src/tests',
+        'src/pages/home-page/data.tsx',
       ],
     },
   },

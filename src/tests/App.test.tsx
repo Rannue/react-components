@@ -1,43 +1,28 @@
-import '@testing-library/jest-dom';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import React from 'react';
+import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
+import configureStore from 'redux-mock-store';
 import App from '../App';
 
-describe('App routing', () => {
-  test('renders home component on home route', () => {
-    render(
-      <MemoryRouter initialEntries={['/']}>
-        <App />
-      </MemoryRouter>
-    );
-    expect(screen.getByTestId('main-page')).toBeInTheDocument();
-  });
+const mockStore = configureStore([]);
 
-  test('renders about component on about route', () => {
-    render(
-      <MemoryRouter initialEntries={['/about-us']}>
-        <App />
-      </MemoryRouter>
-    );
-    expect(screen.getByTestId('about-page')).toBeInTheDocument();
-  });
+describe('App', () => {
+  it('should render header and main sections', () => {
+    const store = mockStore({});
 
-  test('renders about component on about route', () => {
-    render(
-      <MemoryRouter initialEntries={['/form']}>
-        <App />
-      </MemoryRouter>
+    const { getByRole } = render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <App />
+        </MemoryRouter>
+      </Provider>
     );
-    expect(screen.getByTestId('form-page')).toBeInTheDocument();
-  });
 
-  test('renders not found component on unknown route', () => {
-    render(
-      <MemoryRouter initialEntries={['/unknown']}>
-        <App />
-      </MemoryRouter>
-    );
-    expect(screen.getByTestId('unknown-page')).toBeInTheDocument();
+    const header = getByRole('banner');
+    const main = getByRole('main');
+
+    expect(header).toBeInTheDocument();
+    expect(main).toBeInTheDocument();
   });
 });

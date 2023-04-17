@@ -7,7 +7,6 @@ import { NotFound } from './pages/404-page/404-page';
 import { AboutPage } from './pages/about-page/about-page';
 import { HomePage } from './pages/home-page/home-page';
 import { Provider } from 'react-redux';
-import { ApiProvider } from '@reduxjs/toolkit/dist/query/react';
 import store from './store';
 
 function App() {

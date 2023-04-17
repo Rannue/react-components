@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { characterActions } from '../slises/characterSlice';
 import { modalActions } from '../slises/modalSlise';
-import { Character } from './data';
+import { Character } from '../data';
 
 interface CardItemProps {
   character: Character;

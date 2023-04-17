@@ -140,12 +140,14 @@ h2 {
   position: static;
 }
 .card-container .card .card-wrapper {
+  cursor: pointer;
   transition: 0.3s;
   padding: 2em;
   background-color: #f3f3f3;
   display: flex;
   flex-direction: column;
   gap: 12px;
+  justify-content: center;
 }
 .card-container .card .card-wrapper:hover {
   filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.15));
@@ -556,6 +558,8 @@ h2 {
   }
 }
 .prompt-container {
+  grid-column-start: 2;
+  grid-column-end: 3;
   display: flex;
   flex-direction: column;
   margin-top: 60px;

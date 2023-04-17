@@ -3,9 +3,10 @@ import { CardItem } from './card-item';
 import { useSelector } from 'react-redux';
 import { useGetCardQuery } from '../slises/apiSlise';
 import { IInitialSearchState } from '../slises/searchSlise';
-import { Character } from './data';
+import { Character } from '../data';
 import { Spinner } from './spinner';
 import { NoCharacter } from './noCharacters';
+import { LetSearch } from './letSearch';
 
 export type TResult = {
   info: {
@@ -26,16 +27,19 @@ export const Cards = () => {
   const str = searchText as unknown as string;
   const { data: allCards, isLoading, isSuccess } = useGetCardQuery(str);
 
-  function handleModal(item: Character) {
+  function openModal(item: Character) {
     setModalStatus(false);
     setCard(item);
   }
 
   let content;
-  if (isLoading) content = <Spinner />;
-  else if (isSuccess && allCards.results.length) {
+  if (!isSuccess && isLoading) {
+    content = <Spinner />;
+  } else if (str === '') {
+    content = <LetSearch />;
+  } else if (isSuccess && allCards.results.length) {
     content = allCards.results.map((card, i) => (
-      <div key={i} onClick={() => handleModal(card)}>
+      <div className="card" key={i} onClick={() => openModal(card)}>
         <CardItem character={card} />
       </div>
     ));

@@ -5,7 +5,7 @@ export class Header extends React.Component {
   render() {
     return (
       <>
-        <div className="logo">
+        <div data-testid="header-part" className="logo">
           <h4>NO_LOGO</h4>
         </div>
         <div className="pages">

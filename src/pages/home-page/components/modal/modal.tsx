@@ -1,5 +1,5 @@
 import React from 'react';
-import { Character } from '../data';
+import { Character } from '../../data';
 import { useSelector } from 'react-redux';
 import { IStateCharacter } from 'pages/home-page/slises/characterSlice';
 
