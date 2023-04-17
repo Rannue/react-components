@@ -1,46 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { CardItem } from './card-item';
-import cucmber from '../../../assets/pngegg.png';
-import morty from '../../../assets/pngmor.png';
 import { useSelector } from 'react-redux';
-import { SearchState } from './store';
+import { useGetCardQuery } from '../slises/apiSlise';
+import { IInitialSearchState } from '../slises/searchSlise';
+import { Character } from './data';
+import { Spinner } from './spinner';
+import { NoCharacter } from './noCharacters';
+
+export type TResult = {
+  info: {
+    count: number;
+    next: string;
+    pages: number;
+    prev: null;
+  };
+  results: Character[];
+};
 
 export const Cards = () => {
-  const searchText = useSelector((state: SearchState) => state.searchText);
-  const searchResults = useSelector((state: SearchState) => state.searchResults);
+  const [, setModalStatus] = useState(true);
+  const [, setCard] = useState<Character>();
+  const searchText = useSelector((state: IInitialSearchState) => {
+    return state.search.search;
+  });
+  const str = searchText as unknown as string;
+  const { data: allCards, isLoading, isSuccess } = useGetCardQuery(str);
 
-  if (Array.isArray(searchResults)) {
-    if (searchResults.length > 0) {
-      return (
-        <div className="card-container">
-          {searchResults.map((card) => (
-            <div className="card" key={card.id}>
-              <CardItem character={card} />
-            </div>
-          ))}
-        </div>
-      );
-    } else {
-      return (
-        <div className="prompt-container">
-          <h3>It&#39;s time to start searching!</h3>
-          <img className="prompt-img" width="30px" src={cucmber} alt="img" />
-        </div>
-      );
-    }
-  } else if (searchText) {
-    return (
-      <div className="prompt-container">
-        <h3>No results found for &quot;{searchText}&quot;</h3>
-        <img className="prompt-img" src={morty} alt="cucmber" />
-      </div>
-    );
-  } else {
-    return (
-      <div className="prompt-container">
-        <h3>It&#39;s time to start searching!</h3>
-        <img className="prompt-img" width="30px" src={cucmber} alt="img" />
-      </div>
-    );
+  function handleModal(item: Character) {
+    setModalStatus(false);
+    setCard(item);
   }
+
+  let content;
+  if (isLoading) content = <Spinner />;
+  else if (isSuccess && allCards.results.length) {
+    content = allCards.results.map((card, i) => (
+      <div key={i} onClick={() => handleModal(card)}>
+        <CardItem character={card} />
+      </div>
+    ));
+  } else content = <NoCharacter searchText={str} />;
+
+  return <div className="card-container">{content}</div>;
 };

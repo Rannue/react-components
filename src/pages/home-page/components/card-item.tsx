@@ -1,7 +1,8 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { characterActions } from '../slises/characterSlice';
+import { modalActions } from '../slises/modalSlise';
 import { Character } from './data';
-import { setModalCardResult, setModalStatus } from './store';
 
 interface CardItemProps {
   character: Character;
@@ -11,8 +12,8 @@ export const CardItem: React.FC<CardItemProps> = ({ character }) => {
   const dispatch = useDispatch();
 
   const handleCardClick = () => {
-    dispatch(setModalCardResult(character));
-    dispatch(setModalStatus(true));
+    dispatch(characterActions.addValue(character));
+    dispatch(modalActions.addValue(true));
   };
 
   const { name, image } = character;

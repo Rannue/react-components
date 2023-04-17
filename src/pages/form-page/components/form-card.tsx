@@ -9,7 +9,7 @@ export interface Card {
   select: string;
   checkbox: boolean;
   radio: string;
-  image: File | null;
+  image: string;
 }
 
 function CardList({ cards }: { cards: Card[]; removeCard: (id: number) => void }) {
@@ -26,11 +26,7 @@ function CardList({ cards }: { cards: Card[]; removeCard: (id: number) => void }
       {cards.map((card) => (
         <div key={card.id} className="form-card-container">
           <div className="avatar-container">
-            <img
-              className="avatar"
-              src={card.image ? URL.createObjectURL(card.image) : ''}
-              alt=""
-            />
+            <img className="avatar" src={card.image} alt="" />
           </div>
           <div className="info-container">
             <div className="info-container__top">

@@ -3,24 +3,17 @@ import { Cards } from './components/cards';
 import { SearchBar } from './components/search-bar';
 
 import '../style.css';
-import { Spinner } from './components/spinner';
 import { Modal } from './components/modal/modal';
 import Overlay from './components/modal/overlay';
-import { SearchState, setModalStatus } from './components/store';
 import { useDispatch, useSelector } from 'react-redux';
+import { IStateModal, modalActions } from './slises/modalSlise';
 
 const HomePage = () => {
   const dispatch = useDispatch();
-  const loading = useSelector((state: SearchState) => {
-    return state.loading;
-  });
-
-  const modalStatus = useSelector((state: SearchState) => {
-    return state.modalStatus;
-  });
+  const modalStatus = useSelector((state: IStateModal) => state.modalStatus);
 
   const handleModalClose = (): void => {
-    dispatch(setModalStatus(false));
+    dispatch(modalActions.addValue(false));
   };
 
   return (
@@ -29,9 +22,9 @@ const HomePage = () => {
         <h2 data-testid="main-page">Main page</h2>
         <SearchBar />
       </div>
-      {loading ? <Spinner /> : <Cards />}
-      {modalStatus && <Overlay onClick={handleModalClose} />}
-      {modalStatus && <Modal />}
+      {<Cards />}
+      {modalStatus.modalStatus && <Overlay onClick={handleModalClose} />}
+      {modalStatus.modalStatus && <Modal />}
     </>
   );
 };

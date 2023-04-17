@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { cardsActions } from '../slises/cardsSlice';
 import { Card } from '../form-page';
 
 type FormInputs = {
@@ -24,6 +26,7 @@ export const Form = ({ addCard }: CardFormProps) => {
     formState: { errors },
     reset,
   } = useForm<FormInputs>();
+  const dispatch = useDispatch();
 
   const onSubmit = (data: FormInputs) => {
     const card: Card = {
@@ -32,11 +35,12 @@ export const Form = ({ addCard }: CardFormProps) => {
       email: data.email,
       date: data.date,
       select: data.select,
-      image: data.image ? data.image[0] : null,
-      checkbox: data.checkbox,
       radio: data.gender,
+      image: URL.createObjectURL(data.image[0]),
+      checkbox: data.checkbox,
     };
     addCard(card);
+    dispatch(cardsActions.addItem(card));
     showSuccessMessage();
   };
 

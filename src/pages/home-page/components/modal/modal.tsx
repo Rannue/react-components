@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Character } from '../data';
 import { useSelector } from 'react-redux';
-import { SearchState } from '../store';
+import { IStateCharacter } from 'pages/home-page/slises/characterSlice';
 
 export interface ModalProps {
   character: Character;
@@ -18,19 +18,10 @@ export interface Episode {
 }
 
 export const Modal = () => {
-  const character = useSelector((state: SearchState) => {
-    return state.modalCardResult;
-  });
+  const characterD = useSelector((state: IStateCharacter) => state.character.character);
 
-  // const [loading, setLoading] = useState(false);
-  // const [buttonStatus, setButtonStatus] = useState(false);
-  // const [results, setResults] = useState<Episode[] | null>([]);
-
-  if (character) {
-    console.log(character);
-
-    const { name, status, image, species, gender, location, episode } = character;
-
+  if (characterD) {
+    const { name, status, image, species, gender, location } = characterD;
     return (
       <>
         <div className="modal-wrapper">
@@ -60,9 +51,7 @@ export const Modal = () => {
                   <h5 className="modal-text__bold">{location.name}</h5>
                 </div>
               </div>
-              {/* {!buttonStatus && <button className="modal-btn">WHAT EPISODES ?</button>} */}
             </div>
-            {/* {loading && results ? <Spinner /> : <Episodes episodes={results} />} */}
           </div>
         </div>
       </>
@@ -74,23 +63,4 @@ export const Modal = () => {
       </>
     );
   }
-
-  // const handleEpisodeSearch = async () => {
-  //   setLoading(true);
-  //   try {
-  //     setLoading(true);
-  //     const responses = await Promise.all(
-  //       episode.map(async (item) => {
-  //         const response = await fetch(`${item}`);
-  //         return response.json();
-  //       })
-  //     );
-  //     setResults(responses);
-  //     setButtonStatus(true);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
 };
-
-// onClick={handleEpisodeSearch}

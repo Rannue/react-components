@@ -6,16 +6,26 @@ export interface Card {
   select: string;
   checkbox: boolean;
   radio: string;
-  image: File | null;
+  image: string;
 }
+
+export type TCards = {
+  cards: Card[];
+};
 
 import React, { useState } from 'react';
 import { Form } from './components/form';
 import '../style.css';
 import CardList from './components/form-card';
+import { useSelector } from 'react-redux';
+import { IInitialCardsState } from './slises/cardsSlice';
 
 function FormPage() {
   const [cards, setCards] = useState<Card[]>([]);
+  const cardStore = useSelector((state: IInitialCardsState) => state.cards) as unknown as TCards;
+
+  const cardStoreResult: TCards = cardStore;
+  const resultCardsArr: Card[] = cardStoreResult.cards;
 
   const addCard = (card: Card) => {
     setCards((prevCards) => [...prevCards, card]);
@@ -29,7 +39,7 @@ function FormPage() {
     <>
       <div data-testid="form-page" className="form-page">
         <Form addCard={addCard} />
-        <CardList cards={cards} removeCard={removeCard} />
+        {resultCardsArr && <CardList cards={resultCardsArr} removeCard={removeCard} />}
       </div>
     </>
   );

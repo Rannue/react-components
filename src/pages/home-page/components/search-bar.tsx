@@ -1,98 +1,29 @@
 import React from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { IErrors } from './data';
-import { SearchState, setLoading, setSearchResults, setSearchText, store } from './store';
 
-import noInternet from '../../../assets/pngwing.com (1).png';
-import responseStatus404 from '../../../assets/pngmor.png';
-
-interface SearchBarProps {
-  onSearch: (value: string) => void;
-}
+import { IInitialSearchState, searchActions } from '../slises/searchSlise';
 
 export const SearchBar = (): JSX.Element => {
   const dispatch = useDispatch();
-  const searchText = useSelector((state: SearchState) => {
-    return state.searchText;
+  const searchText = useSelector((state: IInitialSearchState) => {
+    return state.search.search;
   });
-  const [searchValue, setSearchValue] = useState(searchText || '');
 
-  const searchResults = useSelector((state: SearchState) => {
-    return state.searchResults;
-  });
+  const str = searchText as unknown as string;
+  const [searchValue, setSearchValue] = useState(str || '');
+
   const [invalid, setInvalid] = useState<boolean>(false);
-
-  // useEffect(() => {
-  //   dispatch(setSearchText(searchText));
-  // }, [dispatch, searchText]);
-
-  // const handleInputChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setSearchValue(event.target.value);
-  //   await console.log(searchValue);
-  //   // console.log(searchText);
-  //   // if (searchValue) dispatch(setSearchText(searchValue));
-  // };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(event.target.value);
-  };
-
-  // useEffect(() => {
-  //   console.log(searchResults);
-  // }, [searchResults]);
-
-  // const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   // setSearchText(event.target.value);
-  //   const inputValue = event.target.value;
-  //   dispatch(setSearchText(inputValue));
-  // };
-
-  const handleSearch = async () => {
-    dispatch(setLoading(true));
-    try {
-      const response = await fetch(
-        `https://rickandmortyapi.com/api/character/?name=${searchValue}`
-      );
-      if (!response.ok) {
-        if (response.status === 404) {
-          throw new Error('No such character!');
-        }
-        if (response.status === 500) {
-          throw new Error('Server error. Please try again later.');
-        }
-        throw new Error('Unknown error.');
-      }
-      const data = await response.json();
-      dispatch(setSearchResults(data.results));
-      dispatch(setSearchText(searchValue));
-    } catch (error) {
-      if (error instanceof TypeError) {
-        const obj: IErrors = {
-          errorStatus: 0,
-          text: 'Сheck internet connection',
-          image: noInternet,
-        };
-        dispatch(setSearchResults(obj));
-      } else {
-        const obj: IErrors = {
-          errorStatus: 0,
-          text: 'No such character!',
-          image: responseStatus404,
-        };
-        dispatch(setSearchResults(obj));
-        dispatch(setSearchText(searchValue));
-      }
-    } finally {
-      dispatch(setLoading(false));
-    }
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter' && searchValue.trim() !== '') {
       event.preventDefault();
       setInvalid(false);
-      handleSearch();
+      dispatch(searchActions.addValue(searchValue));
     } else {
       setInvalid(true);
     }
